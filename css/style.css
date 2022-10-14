@@ -83,6 +83,10 @@ p{
   margin: 0;
   font-weight: 600;
 }
+.fixed{
+  position: fixed;
+}
+
 
 .indicate{
   position: fixed;
