@@ -29,6 +29,7 @@ p{
   background-color: rgba(255, 255, 255, 1.0);
   padding: 1rem 0;
   position: absolute;
+  z-index: 1;
 }
 
 .wrapper {
@@ -83,9 +84,38 @@ p{
   margin: 0;
   font-weight: 600;
 }
-.fixed{
-  position: fixed;
+.animation_fadein{
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
+@keyframes fadeIn {
+  from{
+    opacity: 0;
+    transform: translate(0,20%);
+  }
+  to{
+    opacity: 1;
+    transform: translate(0,0);
+  }
+}
+
+.animation_fadeout{
+  animation-name: fadeOut;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+  from{
+    opacity: 1;
+    transform: translate(0,0);
+  }
+  to{
+    opacity: 0;
+    transform: translate(0,20%);
+  }
+}
+
 
 
 .indicate{
