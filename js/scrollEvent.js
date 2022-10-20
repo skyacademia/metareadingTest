@@ -23,6 +23,7 @@ for (let i = 0; i < 10; i++) {
         contents[num].querySelector(".information_title").style.opacity = 0;
         contents[num].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000 });
         contents[num].style.opacity = 1;
+
         for (let j = 0; j < 10; j++) {
             if (j != i) {
                 indicaters[j].classList.remove('indicateSelected');
@@ -176,7 +177,7 @@ function animation() {
 
 function animationInMoblie() {
     scrollY = window.scrollY;
-
+    
     let num = Math.floor(scrollY / content_area_height);
     insertValue(num);
 
