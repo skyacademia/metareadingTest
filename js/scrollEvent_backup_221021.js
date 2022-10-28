@@ -227,7 +227,6 @@ function animationInMoblie() {
         if (scrollValues[1] - scrollValues[0] > 0) {
             contents[num - 1].style.opacity = 1;
             document.getElementById(`${num - 1}`).classList.remove('indicateSelected');
-            
         } else if (scrollValues[1] - scrollValues[0] < 0) {
             contents[num + 1].style.opacity = 0;
             contents[num + 1].querySelector('.information_title').classList.remove("animation_fadein");

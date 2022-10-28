@@ -136,10 +136,12 @@ p{
   margin-bottom: 10px;
   transition: all 0.5s;
 }
+@media(hover:hover){
 .indicateUnit:hover{
   width: 1.0rem;
   height: 1.0rem;
   cursor: pointer;
+}
 }
 .indicateSelected{
   width: 1.0rem;
