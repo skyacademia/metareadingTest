@@ -48,7 +48,7 @@
 
 
 	<main class="main_contents">
-		<section class="indicate">
+		<nav class="indicate">
 			<ul>
 				<li class="indicateUnit" id="0"></li>
 				<li class="indicateUnit" id="1"></li>
@@ -61,7 +61,7 @@
 				<li class="indicateUnit" id="8"></li>
 				<li class="indicateUnit" id="9"></li>
 			</ul>
-		</section>
+		</nav>
 
 		<article class="area_block">
 			<div class="information_area"
@@ -72,7 +72,7 @@
 				</div>
 			</div>
 		</article>
-		
+
 		<article class="area_block">
 			<div class="information_area"
 				style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('./images/img/library.jpg'); background-size: 100% 100%;">
@@ -194,17 +194,19 @@
 			<div class="information_area"
 				style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('./images/img/seminar.jpg'); background-size: 100% 100%;">
 				<div class="information_title">
-					<h2>
-						문의전화
-					</h2>
-					<h2>
-						카카오톡 오픈채팅
-					</h2>
+					<button id="prev_btn" class="btn"></button>
+					<div class="list_viewer">
+						<div class="container">
+
+						</div>
+					</div>
+					<button id="next_btn" class="btn"></button>
 				</div>
 			</div>
 		</article>
 	</main>
-	<script type='text/javascript' src="./js/scrollEvent.js" defer></script>
+	<script type="text/javascript" src="./js/cardSetting.js" defer></script>
+	<script type="text/javascript" src="./js/scrollEvent.js" defer></script>
 </body>
 <footer>
 	<p>© 2022 metaReading</p>

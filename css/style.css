@@ -19,7 +19,7 @@ body {
 }
 
 p{
-  margin: 0px;
+  margin: 0px
 }
 
 
@@ -77,6 +77,10 @@ p{
 }
 .information_title p{
   font-size: 1.5rem;
+}
+.information_title h3{
+  font-size: 2rem;
+  margin: 0.5rem;
 }
 #information_title_h2_special{
   font-size: 1.5rem;
@@ -136,6 +140,10 @@ p{
   margin-bottom: 10px;
   transition: all 0.5s;
 }
+/*
+pc에서만 hover가 동작되고 모바일에서는 hover 동작하지 않도록 함
+참고 : https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover
+*/
 @media(hover:hover){
 .indicateUnit:hover{
   width: 1.0rem;
@@ -156,11 +164,79 @@ p{
 
 
 .information_title {
+  width: 75%;
   text-align:center;
   line-height:1.8;
   transform: translate(0,-20%);
+  position: relative;
 }
 
+.list_viewer{
+  width: 65%;
+  height: 40vh;
+  overflow: hidden;
+  margin: auto;
+}
+.container{
+  width: 300%;
+  height: 40vh;
+  transition: transform 0.5s;
+}
+
+.brunch{
+  width: calc((100%/3));
+  height: 100%;
+  float: left;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+}
+
+.card{
+  width: 30%;
+  height: 75%;
+  border-radius: 15px;
+  border: 2px solid white;
+  color: white;
+  text-decoration: none;
+  margin: auto;
+  
+  float: left;
+  transition: transform 0.5s;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card:hover{
+  transform: scale(1.05);
+}
+.card p{
+  margin: 0.2rem;
+}
+
+.btn{
+  all:unset;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  transform: rotate(225deg);
+  cursor: pointer;
+}
+#prev_btn{
+  position: absolute;
+  left: 6%;
+  top: 50%;
+  transform: rotate(225deg);
+  pointer-events: none;
+}
+#next_btn{
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: rotate(45deg);
+}
 
 footer {
   background-color: #2d2d2d;
@@ -173,6 +249,11 @@ footer {
   width: 100%;
 }
 @media (max-width:1919px) {
+  .information_area{
+    background-size: cover !important;
+    background-position: center !important;
+  }
+
   .information_title h1, .information_area h2{
     font-size: 2.8rem;
   }
@@ -180,12 +261,23 @@ footer {
   .information_title p{
     font-size: 1.4rem;
   }
+  .information_title h3{
+    font-size: 1.9rem;
+  }
+
+  .btn{
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
   #information_title_h2_special{
     font-size: 1.4rem;
   }
+
 }
 
 @media (max-width:1440px) {
+
   .information_title h1, .information_area h2{
     font-size: 2.6rem;
   }
@@ -193,8 +285,28 @@ footer {
   .information_title p{
     font-size: 1.3rem;
   }
+
+  .information_title h3{
+    font-size: 1.8rem;
+  }
+
+  .btn{
+    width: 1.3rem;
+    height: 1.3rem;
+  }
   #information_title_h2_special{
     font-size: 1.3rem;
+  }
+  .list_viewer,.container{
+    height: 70vh;
+  }
+  .brunch{
+    flex-direction: column;
+    align-items: center;
+  }
+  .card{
+    width: 80%;
+    height: 25%;
   }
 }
 
@@ -210,14 +322,25 @@ footer {
   .information_title p{
     font-size: 1.2rem;
   }
+  .information_title h3{
+    font-size: 1.7rem;
+  }
+  .btn{
+    width: 1.2rem;
+    height: 1.2rem;
+  }
   #information_title_h2_special{
     font-size: 1.2rem;
   }
-  
 }
 
 
 @media (max-width:899px) {
+  .information_area{
+    background-size: cover;
+    background-position: center;
+  }
+
   .top_manu {
     height: 2.45rem;
   }
@@ -228,6 +351,10 @@ footer {
 
   .information_title p{
     font-size: 1.1rem;
+  }
+  .information_title h3{
+    font-size: 1.6rem;
+
   }
   #information_title_h2_special{
     font-size: 1.1rem;
@@ -246,6 +373,18 @@ footer {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+  }
+
+  .btn{
+    width: 1.1rem;
+    height: 1.1rem;
+    visibility: hidden;
+  }
+  .list_viewer{
+    width: 100%;
+  }
+  .card{
+    width: 80%;
   }
 }
 
@@ -268,6 +407,10 @@ footer {
   .information_title p{
     font-size: 1rem;
   }
+  .information_title h3{
+    font-size: 1.5rem;
+  }
+
   #information_title_h2_special{
     font-size: 1rem;
   }

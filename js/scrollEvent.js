@@ -7,14 +7,54 @@ let contents = document.body.querySelectorAll(".information_area");
 let content_area_height = document.querySelector(".area_block").scrollHeight;
 let indicaters = document.querySelectorAll(".indicateUnit");
 
+// 마지막 페이지 카드 리스트 동작을 위한 변수들
+let prev_btn = document.querySelector('#prev_btn');
+let next_btn = document.querySelector('#next_btn');
+let list_container = document.querySelector('.container');
+let btn_count = 0; // 카드 리스트 카운트 용
+let brunch_length = document.querySelectorAll('.brunch').length;
+
+// 마지막 페이지 카드 리스트 드래그 동작을 위한 변수들
+let slide = document.body.querySelector(".list_viewer");
+let startPoint = 0;
+let endPoint = 0;
+
+
 window.onload = loadAnimation;
 const isMobile = detectMobileDevice();
 
 if (isMobile == true) {
     window.onscroll = animationInMoblie;
+    // 모바일 페이지에서 배경화면 비율 유지
+    // var information_area_list = document.body.querySelectorAll(".information_area");
+    // for (var i = 0; i < information_area_list.length; i++) {
+    //     information_area_list[i].style.backgroundSize = "cover";
+    //     information_area_list[i].style.backgroundPosition = "center";
+    // }
+
+    slide.addEventListener("touchstart", (e) => {
+        startPoint = e.touches[0].pageX; // 터치가 시작되는 위치 저장
+    });
+    slide.addEventListener("touchend", (e) => {
+        endPoint = e.changedTouches[0].pageX; // 터치가 끝나는 위치 저장
+        if (startPoint < endPoint) {
+            // 오른쪽으로 스와이프 된 경우(이전)
+            if (btn_count > 0){
+                prevSlide();
+            }
+        } else if (startPoint > endPoint) {
+            // 왼쪽으로 스와이프 된 경우(다음)
+            if (btn_count < brunch_length - 1){
+                nextSlide();
+            }
+        }
+    });
 } else if (isMobile == false) {
     window.onscroll = animation;
 }
+
+next_btn.addEventListener("click", nextSlide)
+prev_btn.addEventListener("click", prevSlide)
 
 for (let i = 0; i < 10; i++) {
     indicaters[i].addEventListener("click", function (event) {
@@ -25,13 +65,13 @@ for (let i = 0; i < 10; i++) {
         contents[num].style.opacity = 1;
         if (scrollValues.length == 2) {
             if (scrollValues[1] - scrollValues[0] > 0) {
-                for(let j=0; j<i; j++){
+                for (let j = 0; j < i; j++) {
                     contents[j].style.opacity = 1;
                     contents[j].querySelector('.information_title').style.opacity = 1;
                     contents[j].querySelector('.information_title').style.transform = 'translate(0,0)'
                 }
             } else if (scrollValues[1] - scrollValues[0] < 0) {
-                for(let j=9; j>i; j--){
+                for (let j = 9; j > i; j--) {
                     contents[j].style.opacity = 0;
                     contents[j].querySelector('.information_title').style.opacity = 0;
                     contents[j].querySelector('.information_title').style.transform = 'translate(0,20%)'
@@ -41,7 +81,7 @@ for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
             if (j != i) {
                 indicaters[j].classList.remove('indicateSelected');
-            }else{
+            } else {
                 indicaters[j].classList.add('indicateSelected');
             }
         }
@@ -174,14 +214,16 @@ function animation() {
 
 function changePageWhenScroll(num) {
     if (scrollValues.length == 2) {
-        changePageBeforeScroll(page=num-1);
+        changePageBeforeScroll(page = num - 1);
         if (findScrollDirection() > 0) {
-            changePageOnComputer(page=num-1, opacity=1, translate=0);
+            changePageOnComputer(page = num - 1, opacity = 1, translate = 0);
         } else if (scrollValues[1] - scrollValues[0] < 0) {
-            changePageOnComputer(page=num+1, opacity=0, translate=20);
+            changePageOnComputer(page = num + 1, opacity = 0, translate = 20);
+            btn_count = 0;
+            list_container.style.transform = `translate(0%)`;
         }
     }
-    addIndicater(page=num);
+    addIndicater(page = num);
 
     function changePageBeforeScroll(page) {
         if (page > 0) {
@@ -198,16 +240,16 @@ function changePageWhenScroll(num) {
         removeIndicater(page);
     }
 
-    function addIndicater(page) {
-        document.getElementById(`${page}`).classList.add('indicateSelected');
-    }
     function findScrollDirection() {
         return scrollValues[1] - scrollValues[0];
+    }
+    function addIndicater(page) {
+        document.getElementById(`${page}`).classList.add('indicateSelected');
     }
     function removeIndicater(page) {
         document.getElementById(`${page}`).classList.remove('indicateSelected');
     }
-    
+
 }
 
 
@@ -218,7 +260,7 @@ function changePageWhenScroll(num) {
 
 function animationInMoblie() {
     scrollY = window.scrollY;
-    
+
     let num = Math.floor(scrollY / content_area_height);
     insertValue(num);
 
@@ -227,7 +269,7 @@ function animationInMoblie() {
         if (scrollValues[1] - scrollValues[0] > 0) {
             contents[num - 1].style.opacity = 1;
             document.getElementById(`${num - 1}`).classList.remove('indicateSelected');
-            
+
         } else if (scrollValues[1] - scrollValues[0] < 0) {
             contents[num + 1].style.opacity = 0;
             contents[num + 1].querySelector('.information_title').classList.remove("animation_fadein");
@@ -297,4 +339,20 @@ function insertValue(scroll) {
 function detectMobileDevice() {
     const minWidth = 900
     return window.innerWidth < minWidth
+}
+
+function nextSlide() {
+    btn_count++;
+    if (btn_count > 0) { prev_btn.style.pointerEvents = 'auto' }
+    var ratio = (-(100 / 3)) * btn_count;
+    list_container.style.transform = `translate(${ratio}%)`;
+    if (btn_count >= brunch_length - 1) { next_btn.style.pointerEvents = 'none'; }
+}
+
+function prevSlide() {
+    btn_count--;
+    if (btn_count <= brunch_length - 1) { next_btn.style.pointerEvents = 'auto'; }
+    var ratio = (-(100 / 3)) * btn_count;
+    list_container.style.transform = `translate(${ratio}%)`;
+    if (btn_count <= 0) { prev_btn.style.pointerEvents = 'none'; }
 }
